@@ -4,8 +4,8 @@
 namespace Xcrms\Alipay;
 
 use Exception;
-use Xcrms\Alipay\Enum\CurleError;
-use Xcrms\Alipay\Exception\CurleException;
+use Xcrms\Alipay\Enum\CurlError;
+use Xcrms\Alipay\Exception\CurlException;
 use Xcrms\Alipay\Exception\EncryptException;
 use Xcrms\Alipay\Exception\InvalidSignException;
 use Xcrms\Alipay\Exception\ParamException;
@@ -329,17 +329,17 @@ class Api
     }
 
     /**
-     * @todo 发起请求
      * @param $config
      * @param $data
      * @return mixed
-     * @throws CurleException
+     * @throws CurlException
      * @throws InvalidSignException
+     *@todo 发起请求
      */
     protected static function request($config, $data){
         try{
             $result =  self::postCurl($data);
-        }catch (CurleException $e){
+        }catch (CurlException $e){
             throw $e;
         }
         try{
@@ -450,10 +450,10 @@ class Api
     }
 
     /***
-     * @todo post请求
      * @param $data
      * @return mixed
-     * @throws CurleException
+     * @throws CurlException
+     *@todo post请求
      */
     protected static function postCurl($data)
     {
@@ -486,13 +486,13 @@ class Api
             curl_close($ch);
             $msg = [
                 'errorno'=>$error,
-                'errormsg'=>CurleError::getMsg($error)
+                'errormsg'=>CurlError::getMsg($error)
             ];
             if(isset(self::$logger))
             {
                 self::$logger->error(json_encode($msg));
             }
-            throw new CurleException(CurleError::getMsg($error));
+            throw new CurlException(CurlError::getMsg($error));
         }
     }
 }

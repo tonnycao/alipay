@@ -9,7 +9,7 @@ namespace Xcrms\Alipay\Enum;
  * Class Errors
  * @package Inesadt\Wechat
  */
-class CurleError extends EnumBase
+class CurlError extends EnumBase
 {
         const MAP = [
             1 => 'CURLE_UNSUPPORTED_PROTOCOL',

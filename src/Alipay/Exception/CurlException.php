@@ -4,7 +4,7 @@
 namespace Xcrms\Alipay\Exception;
 
 
-class CurleException extends \Exception
+class CurlException extends \Exception
 {
     const CODE =2;
 
