@@ -1,0 +1,24 @@
+{
+    "name": "xcrms/alipay",
+    "description": "Xcrms Alipay",
+	"type": "library",
+    "require-dev": {
+        "monolog/monolog": "1.24.0"
+    },
+	"require": {
+		"php": ">=7.2.0",
+		"monolog/monolog" : "1.24.0"
+    },
+    "authors": [
+        {
+            "name": "caojian",
+            "email": "647812411@qq.com"
+        }
+    ],
+	"autoload": {
+        "psr-4": {
+            "Xcrms\\Alipay\\": "src/Alipay/"
+        }
+    },
+    "require": {}
+}
