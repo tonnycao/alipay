@@ -1,8 +1,8 @@
-## Mch Alipay
+## MCH Alipay
 
 #### Features
-1. bar code pay
-2. qr code pay
+1. barcode pay
+2. qrcode pay
 3. online pay
 4. mobile pay
 5. huabei pay

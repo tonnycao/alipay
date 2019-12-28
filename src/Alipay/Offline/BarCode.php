@@ -10,6 +10,7 @@ use Xcrms\Alipay\Exception\CurleException;
 use Xcrms\Alipay\Exception\InvalidSignException;
 use Xcrms\Alipay\Exception\ParamException;
 use Xcrms\Alipay\Exception\EncryptException;
+use Exception;
 
 /***
  * @todo 条码支付
@@ -56,14 +57,8 @@ class BarCode
         $biz['timeout_express'] = empty($config['timeout_express'])?'2m':$config['timeout_express'];
         try{
             $result = Api::pay($config,$biz);
-        }catch (CurleException $e){
+        }catch (Exception $e){
             throw $e;
-        }catch (EncryptException $e){
-            throw $e;
-        }catch (InvalidSignException $e){
-            throw $e;
-        }catch (\Exception $e){
-            throw new Exception($e->getMessage(),-1);
         }
 
         if($result['code']!=ResultCode::SUCCESS){
@@ -92,13 +87,7 @@ class BarCode
 
         try{
             $result =  Api::query($config,$biz);
-        }catch (CurleException $e){
-            throw $e;
-        }catch (EncryptException $e){
-            throw $e;
-        }catch (InvalidSignException $e){
-            throw $e;
-        }catch (\Exception $e){
+        }catch (Exception $e){
             throw $e;
         }
 
@@ -135,7 +124,7 @@ class BarCode
             throw $e;
         }catch (InvalidSignException $e){
             throw $e;
-        }catch (\Exception $e){
+        }catch (Exception $e){
             throw $e;
         }
         if($result['code']!=ResultCode::SUCCESS){
@@ -187,7 +176,7 @@ class BarCode
             throw $e;
         }catch (InvalidSignException $e){
             throw $e;
-        }catch (\Exception $e){
+        }catch (Exception $e){
             throw $e;
         }
         if($result['code']!=ResultCode::SUCCESS){
@@ -196,4 +185,54 @@ class BarCode
         return $result;
     }
 
+    /**
+     * @todo 关闭订单
+     * @param $config
+     * @param $biz
+     * @return mixed
+     * @throws AlipayException
+     * @throws ParamException
+     */
+    public function close($config, $biz)
+    {
+        $config['method'] = 'alipay.trade.close';
+        if(empty($config['app_id'])){
+            throw new ParamException('应用ID为空');
+        }
+        if(empty($biz['out_trade_no'])||empty($biz['trade_no'])){
+            throw new ParamException('订单编号为空');
+        }
+
+        try{
+            $result = Api::close($config, $biz);
+        }catch (Exception $e){
+            throw $e;
+        }
+
+        if($result['code']!=ResultCode::SUCCESS){
+            throw new AlipayException($result['sub_msg']);
+        }
+        return $result;
+
+    }
+
+    public function refundQuery($config, $biz){
+        $config['method'] = 'alipay.trade.fastpay.refund.query';
+        if(empty($biz['out_trade_no'])&&empty($biz['trade_no'])){
+            throw new ParamException('订单号为空');
+        }
+        if(empty($biz['out_request_no'])){
+            throw new ParamException('请求编号为空');
+        }
+        try{
+            $result = Api::refundQuery($config, $biz);
+        }catch (Exception $e){
+            throw $e;
+        }
+
+        if($result['code']!=ResultCode::SUCCESS){
+            throw new AlipayException($result['sub_msg']);
+        }
+        return $result;
+    }
 }
