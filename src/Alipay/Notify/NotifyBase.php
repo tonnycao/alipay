@@ -4,6 +4,9 @@
 namespace Xcrms\Alipay\Notify;
 
 
+use Xcrms\Alipay\Exception\InvalidSignException;
+use Xcrms\Alipay\Util;
+
 class NotifyBase
 {
     protected $raw_post = NULL;
@@ -20,17 +23,33 @@ class NotifyBase
     {
         $post = file_get_contents('php://input');
         $this->raw_post = $post;
-
+        $this->result = $post;
     }
 
     /**
      * @todo —È«©
      * @param $key_path
      * @return bool
+     * @throws InvalidSignException
      */
     public function validSign($key_path)
     {
        $flag = false;
+       $sign = base64_decode($this->raw_post['sign']);
+       $post = [];
+       foreach ($this->raw_post as $key=>$value){
+           if($key !='sign' && $key !='sign_type' && $value!='' && !is_array($value)){
+               $post[$key] =  urlencode($value);
+           }
+       }
+       $params = Util::toUrlParams($post);
+       $make_sign = Util::makeSignRsa2($params,$key_path);
+       if(!$make_sign){
+           throw new InvalidSignException('—È«© ß∞‹');
+       }
+       if($sign == $make_sign){
+           $flag = true;
+       }
        return $flag;
     }
     /**

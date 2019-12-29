@@ -18,5 +18,17 @@ class FundChannel extends EnumBase
     const MCOUPON='商户红包';
     const PCREDIT='蚂蚁花呗';
 
+    const MAP = [
+        'COUPON'=>self::COUPON,
+        'ALIPAYACCOUNT'=>self::ALIPAYACCOUNT,
+        'POINT'=>self::POINT,
+        'DISCOUNT'=>self::DISCOUNT,
+        'PCARD'=>self::PCARD,
+        'FINANCEACCOUNT'=>self::FINANCEACCOUNT,
+        'MCARD'=>self::MCARD,
+        'MDISCOUNT'=>self::MDISCOUNT,
+        'MCOUPON'=>self::MCOUPON,
+        'PCREDIT'=>self::PCREDIT
+    ];
 
 }
