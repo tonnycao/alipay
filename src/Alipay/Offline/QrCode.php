@@ -33,7 +33,6 @@ class QrCode extends Alipay
         if(empty($biz['total_amount'])){
             throw new ParamException('订单金额为空');
         }
-        $biz['scene'] = self::SCENE;
         $config['method'] = 'alipay.trade.precreate';
         $biz['timeout_express'] = empty($config['timeout_express'])?'2m':$config['timeout_express'];
         try{

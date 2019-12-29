@@ -27,6 +27,13 @@
 composer require xcrms/alipay
 
 
+#### Using
+
+1. Public_key_path Private_key_path RSA2 Sign
+2. APPID
+3. PID app_auth_token
+
+
 
 
 
