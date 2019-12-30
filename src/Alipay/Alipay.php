@@ -6,9 +6,6 @@ namespace Xcrms\Alipay;
 
 use Xcrms\Alipay\Enum\ResultCode;
 use Xcrms\Alipay\Exception\AlipayException;
-use Xcrms\Alipay\Exception\CurlException;
-use Xcrms\Alipay\Exception\EncryptException;
-use Xcrms\Alipay\Exception\InvalidSignException;
 use Xcrms\Alipay\Exception\ParamException;
 
 class Alipay
@@ -22,20 +19,19 @@ class Alipay
     }
 
     /**
+     * @todo Êü•ËØ¢ËÆ¢ÂçïÁä∂ÊÄÅ
      * @param $config
      * @param $biz
      * @return mixed
-     * @throws CurlException
-     * @throws EncryptException
-     * @throws InvalidSignException
+     * @throws Exception
      * @throws ParamException
      * @throws AlipayException
-     *@todo ≤È—Ø∂©µ•◊¥Ã¨
+     *
      */
     public function query($config,$biz){
         $config['method'] = 'alipay.trade.query';
         if(empty($biz['out_trade_no'])){
-            throw new ParamException('∂©µ•∫≈Œ™ø’');
+            throw new ParamException('ËÆ¢ÂçïÁºñÂè∑‰∏∫Á©∫');
         }
 
         try{
@@ -52,31 +48,23 @@ class Alipay
     }
 
     /***
+     * @todo ÈúÄÊ±ÇËÆ¢Âçï
      * @param $config
      * @param $biz
      * @return mixed
      * @throws AlipayException
-     * @throws CurlException
-     * @throws EncryptException
-     * @throws InvalidSignException
      * @throws ParamException
-     *@todo ≥∑œ˙∂©µ•
+     *
      */
     public function cancel($config,$biz){
 
         if(empty($biz['trade_no']) && empty($biz['out_trade_no'])){
-            throw new ParamException('∂©µ•∫≈Œ™ø’');
+            throw new ParamException('ËÆ¢ÂçïÂè∑‰∏∫Á©∫');
         }
         $config['method'] = 'alipay.trade.cancel';
 
         try{
             $result =  Api::query($config,$biz);
-        }catch (CurlException $e){
-            throw $e;
-        }catch (EncryptException $e){
-            throw $e;
-        }catch (InvalidSignException $e){
-            throw $e;
         }catch (Exception $e){
             throw $e;
         }
@@ -87,15 +75,13 @@ class Alipay
     }
 
     /***
+     * @todo  ÈÄÄÊ¨æ
      * @param $config
      * @param $biz
      * @return mixed
      * @throws AlipayException
-     * @throws CurlException
-     * @throws EncryptException
-     * @throws InvalidSignException
+     * @throws Exception
      * @throws ParamException
-     *@todo ÕÀøÓ
      */
     public function refund($config, $biz)
     {
@@ -105,30 +91,24 @@ class Alipay
             $no = $biz['trade_no'];
         }
         if(empty($no)){
-            throw new ParamException('∂©µ•∫≈Œ™ø’');
+            throw new ParamException('ËÆ¢ÂçïÂè∑‰∏∫Á©∫');
         }
         if(empty($biz['refund_amount'])){
-            throw new ParamException('ÕÀøÓΩ∂ÓŒ™ø’');
+            throw new ParamException('ÈÄÄÊ¨æÈáëÈ¢ù‰∏∫Á©∫');
         }
         if(empty($biz['out_request_no'])){
-            throw new ParamException('ÕÀøÓ«Î«Û∫≈Œ™ø’');
+            throw new ParamException('ËØ∑Ê±ÇÁºñÂè∑‰∏∫Á©∫');
         }
         if(empty($biz['refund_currency'])){
             $biz['refund_currency'] = 'CNY';
         }
         if(empty($biz['refund_reason'])){
-            $biz['refund_reason'] = 'ÕÀøÓ'.$biz['refund_amount'].'‘™';
+            $biz['refund_reason'] = 'ÈÄÄÊ¨æ'.$biz['refund_amount'].'ÂÖÉ';
         }
         $config['method'] = 'alipay.trade.refund';
 
         try{
             $result =  Api::refund($config,$biz);
-        }catch (CurlException $e){
-            throw $e;
-        }catch (EncryptException $e){
-            throw $e;
-        }catch (InvalidSignException $e){
-            throw $e;
         }catch (Exception $e){
             throw $e;
         }
@@ -139,7 +119,7 @@ class Alipay
     }
 
     /**
-     * @todo πÿ±’∂©µ•
+     * @todo ÂÖ≥Èó≠ËÆ¢Âçï
      * @param $config
      * @param $biz
      * @return mixed
@@ -150,10 +130,10 @@ class Alipay
     {
         $config['method'] = 'alipay.trade.close';
         if(empty($config['app_id'])){
-            throw new ParamException('”¶”√IDŒ™ø’');
+            throw new ParamException('Â∫îÁî®ID‰∏∫Á©∫');
         }
         if(empty($biz['out_trade_no'])||empty($biz['trade_no'])){
-            throw new ParamException('∂©µ•±‡∫≈Œ™ø’');
+            throw new ParamException('ËÆ¢ÂçïÂè∑‰∏∫Á©∫');
         }
 
         try{
@@ -169,13 +149,21 @@ class Alipay
 
     }
 
+    /**
+     * @todo ÈÄÄÊ¨æÊü•ËØ¢
+     * @param $config
+     * @param $biz
+     * @return mixed
+     * @throws AlipayException
+     * @throws ParamException
+     */
     public function refundQuery($config, $biz){
         $config['method'] = 'alipay.trade.fastpay.refund.query';
         if(empty($biz['out_trade_no'])&&empty($biz['trade_no'])){
-            throw new ParamException('∂©µ•∫≈Œ™ø’');
+            throw new ParamException('ËÆ¢ÂçïÂè∑‰∏∫Á©∫');
         }
         if(empty($biz['out_request_no'])){
-            throw new ParamException('«Î«Û±‡∫≈Œ™ø’');
+            throw new ParamException('ËØ∑Ê±ÇÁºñÂè∑‰∏∫Á©∫');
         }
         try{
             $result = Api::refundQuery($config, $biz);

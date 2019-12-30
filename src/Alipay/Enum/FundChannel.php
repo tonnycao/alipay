@@ -7,16 +7,16 @@ namespace Xcrms\Alipay\Enum;
 class FundChannel extends EnumBase
 {
 
-    const COUPON='Ö§¸¶±¦ºì°ü';
-    const ALIPAYACCOUNT='Ö§¸¶±¦Óà¶î';
-    const POINT='¼¯·Ö±¦';
-    const DISCOUNT='ÕÛ¿ÛÈ¯';
-    const PCARD='Ô¤¸¶¿¨';
-    const FINANCEACCOUNT='Óà¶î±¦';
-    const MCARD = 'ÉÌ¼Ò´¢Öµ¿¨';
-    const MDISCOUNT='ÉÌ»§ÓÅ»ÝÈ¯';
-    const MCOUPON='ÉÌ»§ºì°ü';
-    const PCREDIT='ÂìÒÏ»¨ßÂ';
+    const COUPON='æ”¯ä»˜å®çº¢åŒ…';
+    const ALIPAYACCOUNT='æ”¯ä»˜å®ä½™é¢';
+    const POINT='ç§¯åˆ†å¡';
+    const DISCOUNT='é›†åˆ†å®';
+    const PCARD='é¢„ä»˜å¡';
+    const FINANCEACCOUNT='ä½™é¢å®';
+    const MCARD = 'å•†å®¶å‚¨å€¼å¡';
+    const MDISCOUNT='å•†æˆ·ä¼˜æƒ åˆ¸';
+    const MCOUPON='å•†æˆ·çº¢åŒ…';
+    const PCREDIT='èš‚èšèŠ±å‘—';
 
     const MAP = [
         'COUPON'=>self::COUPON,
