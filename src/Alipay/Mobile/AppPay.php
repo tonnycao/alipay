@@ -3,6 +3,7 @@
 
 namespace Xcrms\Alipay\Mobile;
 
+
 use Exception;
 use Xcrms\Alipay\Alipay;
 use Xcrms\Alipay\Api;
@@ -11,23 +12,20 @@ use Xcrms\Alipay\Exception\AlipayException;
 use Xcrms\Alipay\Exception\ParamException;
 
 /***
- * @todo 手机网站支付
- * Class MobilePay
+ * @todo 手机APP支付
+ * Class AppPay
  * @package Xcrms\Alipay\Mobile
  */
-class MobilePay extends Alipay
+class AppPay extends Alipay
 {
 
-    public function wapPay($config,$biz)
+    public function pay($config, $biz)
     {
-        $config['method'] = 'alipay.trade.wap.pay';
+        $config['method'] = 'alipay.trade.app.pay';
         if(empty($biz['out_trade_no'])){
             throw new ParamException('订单号为空');
         }
 
-        if(empty($biz['subject'])){
-            throw new ParamException('订单说明为空');
-        }
         if(empty($biz['total_amount'])){
             throw new ParamException('订单金额为空');
         }
@@ -45,4 +43,5 @@ class MobilePay extends Alipay
 
         return $result;
     }
+
 }
