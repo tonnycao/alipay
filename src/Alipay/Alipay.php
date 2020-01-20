@@ -18,6 +18,38 @@ class Alipay
         Api::setLogger($this->logger);
     }
 
+    /***
+     * @todo 统一下单
+     * @param $config
+     * @param $biz
+     * @return mixed
+     * @throws AlipayException
+     * @throws ParamException
+     */
+    public function creat($config,$biz){
+        $config['method'] = 'alipay.trade.create';
+        if(empty($biz['out_trade_no'])){
+            throw new ParamException('订单编号为空');
+        }
+
+        if(empty($biz['total_amount'])){
+            throw new ParamException('交易金额为空');
+        }
+        if(empty($biz['subject'])){
+            throw new ParamException('订单标题为空');
+        }
+        try{
+            $result =  Api::create($config,$biz);
+        }catch (Exception $e){
+            throw $e;
+        }
+
+        if($result['code']!=ResultCode::SUCCESS){
+            throw new AlipayException($result['sub_msg']);
+        }
+
+        return $result;
+    }
     /**
      * @todo 查询订单状态
      * @param $config

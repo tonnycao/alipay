@@ -27,7 +27,7 @@ class NotifyBase
     }
 
     /**
-     * @todo ÑéÇ©
+     * @todo éªŒç­¾
      * @param $key_path
      * @return bool
      * @throws InvalidSignException
@@ -45,7 +45,7 @@ class NotifyBase
        $params = Util::toUrlParams($post);
        $make_sign = Util::makeSignRsa2($params,$key_path);
        if(!$make_sign){
-           throw new InvalidSignException('ÑéÇ©Ê§°Ü');
+           throw new InvalidSignException('éªŒç­¾å¤±è´¥');
        }
        if($sign == $make_sign){
            $flag = true;
@@ -53,7 +53,7 @@ class NotifyBase
        return $flag;
     }
     /**
-     * @todo ·µ»ØLogger
+     * @todo è®¾ç½®Logger
      * @return null
      */
     public function getLogger()
@@ -62,7 +62,7 @@ class NotifyBase
     }
 
     /***
-     * @todo »ñÈ¡Ô­Ê¼Êı¾İ
+     * @todo è·å–æºæ•°æ®
      * @return null
      */
     public function getRawPost()
@@ -71,7 +71,7 @@ class NotifyBase
     }
 
     /***
-     * @todo »ñÈ¡´¦Àí½á¹û
+     * @todo è·å–å¤„ç†ç»“æœ
      * @return null
      */
     public function getResult()
@@ -80,14 +80,14 @@ class NotifyBase
     }
 
     /***
-     * @todo ´òÓ¡³É¹¦
+     * @todo æˆåŠŸ
      */
     public function success(){
         echo 'success';
     }
 
     /**
-     * @todo ´òÓ¡Ê§°Ü
+     * @todo å¤±è´¥
      */
     public function fail(){
         echo 'fail';

@@ -26,6 +26,45 @@ class Api
     protected static $logger = NULL;
 
     /***
+     * @todo 统一收单交易
+     * @param $config
+     * @param $biz_content
+     * @return mixed
+     * @throws ParamException
+     */
+    public static function create($config,$biz_content)
+    {
+        if(empty($biz_content['out_trade_no'])){
+            throw new ParamException('订单号为空');
+        }
+        if(empty($biz_content['subject'])){
+            throw new ParamException('订单说明为空');
+        }
+        if(empty($biz_content['total_amount'])){
+            throw new ParamException('订单金额为空');
+        }
+
+        $biz_params = [
+            'out_trade_no'=>$biz_content['out_trade_no'],
+            'subject'=>$biz_content['subject'],
+            'total_amount'=>$biz_content['total_amount'],
+        ];
+        try{
+            $params = self::prepareRequest($config,$biz_params);
+        }catch (Exception $e){
+            throw $e;
+        }
+
+        try{
+            $return = self::request($config,$params);
+        }catch (Exception $e){
+            throw $e;
+        }
+
+        return $return;
+    }
+
+    /***
      * @todo 下单
      * @param $config
      * @param $biz_content
